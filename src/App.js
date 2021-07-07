@@ -1,43 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
 } from 'react-router-dom';
 
-import Home from './Home/Home';
-import Repository from './Repository/Repository';
+import Header from './Header';
+import Home from './Home/Index';
+import Repository from './Repository/Index';
 
-import './App.css';
+import styled from 'styled-components';
+
+const AppWideStyles = styled.div`
+  .App {
+    // background: pink;
+    text-align: center;
+    height: 100vh;
+  }
+`;
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        {/* <header className="App-header">
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/repositories">Repository</Link>
-              </li>
-            </ul>
-          </nav>
-        </header> */}
-        
-        <Switch>
-          <Route path="/repositories">
-            <Repository />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+  const [results, setResults] = useState({
+      items: []
+  });
 
-      </div>
-    </Router>
+  return (
+    <AppWideStyles>
+      <Header />
+      <Router>
+        <div className="App">
+          <Switch>
+            <Route path="/repositories/:id">
+              <Repository 
+                results={results} />
+            </Route>
+            <Route path="/">
+              <Home 
+                results={results}
+                setResults={setResults} />
+            </Route>
+          </Switch>
+
+        </div>
+      </Router>
+    </AppWideStyles>
   );
 }
 

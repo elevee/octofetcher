@@ -1,29 +1,37 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+
+import styled from 'styled-components';
+
+const TableStyles = styled.div`
+  align-items: flex-start;
+  
+`
 
 const RepositoryItem = ({data}) => {
-    const {language, name, stargazers_count} = data;
+    const {id, language, name, stargazers_count} = data;
 
     return (
         <tr>
-            <td>{name}</td>
+            <td><Link to={`/repositories/${id}`}>{name}</Link></td>
             <td>{stargazers_count}</td>
             <td>{language ? language : '-'}</td>
         </tr>
     );
 }
 
-const RepositoriesTable = ({results}) => {
+const RepositoriesTable = ({filter, results}) => {
     const {items} = results;
     if (!items || items.length === 0) {
         return (
             <div>
-                <h2>Type a Repo name to get started!</h2>
+                <h2>Search a Repo name to get started!</h2>
             </div>
         )
     }
 
     return (
-        <div>
+        <TableStyles>
             <h3>RepositoriesTable</h3>
             <table>
                 <thead>
@@ -34,10 +42,23 @@ const RepositoriesTable = ({results}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item, i) => <RepositoryItem key={`${i}_${Date.now()}`} data={item} />)}
+                    {items
+                      .filter((item) => {
+                        if(filter){
+                          console.log('filt=', filter);
+                          if(filter === 'None') return !item.language
+                          return item.language === filter;
+                        }
+                        return item;
+                      })
+                      .map((item, i) => 
+                        <RepositoryItem 
+                            key={`${i}_${Date.now()}`} 
+                            data={item} />
+                    )}
                 </tbody>
             </table>
-        </div>
+        </TableStyles>
     );
 }
 
