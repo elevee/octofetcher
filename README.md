@@ -16,3 +16,10 @@ Builds a production version of the app to the `build` folder, optimizing the bui
 
 The build is minified and the filenames include the hashes.
 
+### `Development vs Production API endpoints`
+
+For development, you may find it simpler to use the local mock responses for the list and detail repository endpoints. To switch between hitting the actual endpoint and hitting our local files, simply switch the `testing` flag in `/src/api/Api.js`.
+
+```js
+const testing = true;
+```
