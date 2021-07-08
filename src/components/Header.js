@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const HeaderStyles = styled.header`
   display: grid;
   grid-template-rows: 2fr 1fr;
-  
+  // background-color: #dcedc8;
+
   #logo {
     margin: 0px;
     padding: 0px;

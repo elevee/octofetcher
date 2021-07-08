@@ -1,10 +1,8 @@
 import {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {isEmpty, pickBy} from 'lodash';
-import sampleResponse from './sampleResponse';
+import {callRepositories} from 'api/Api';
 import styled from 'styled-components';
-
-const testing = true;
 
 //parses id query string if present
 const useQuery = () => new URLSearchParams(useLocation().search);
@@ -23,34 +21,41 @@ export const urlBuilder = (params) => {
     return baseUrl + new URLSearchParams(cleanedSubmitData);
 }
 
-const handleSubmit = (dataToSubmit, setResults) => async (e) => {
+const handleSubmit = ({
+    dataToSubmit, 
+    setIsLoading,
+    setResults
+}) => async (e) => {
     if (e) e.preventDefault();
 
     const url = urlBuilder(dataToSubmit);
     console.log('url will be', url);
-
-    if(testing){
-        const result = sampleResponse;
-        setResults(result);
-        return;
-    }
-
-    if(url){
-        const response = await fetch(url);
-        const result = await response.json();
-        setResults(result);
-        return result;
-    }
+    callRepositories({setIsLoading, setResults, url});
 }
 
 const SearchStyles = styled.aside`
     // grid-column: 1 / 2;
     // grid-row: 1 / 2;
-    // background: #e1bee7;
     padding: 20px 10px;
+
+    .search {
+        width: 200px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin: 0px;
+        text-align: left;
+        font-weight: bold;
+    }
+
+    input[type='submit'] {
+        margin-top: 10px;
+    }
 `
 
-const Search = ({results, setResults}) => {
+const Search = ({isLoading, results, setIsLoading, setResults}) => {
     const queryStrings = useQuery();
     const urlQuery = queryStrings.get('q') ? encodeURIComponent(queryStrings.get('q')) : null;
     const [query, setQuery] = useState(urlQuery ? urlQuery : '');
@@ -72,24 +77,27 @@ const Search = ({results, setResults}) => {
 
     useEffect(() => { 
         if(urlQuery?.length > 0){ //submit automatically if url query param
-            handleSubmit(dataToSubmit, setResults)();
+            handleSubmit({dataToSubmit, setIsLoading, setResults})();
         }
-    }, [dataToSubmit, setResults, urlQuery])
+    }, [])
 
     return (
         <SearchStyles>
             <aside>
-                <form onSubmit={handleSubmit(dataToSubmit, setResults)}>
-                    <label htmlFor={'query'}>
-                        Query:
+                <div className='search'>
+                    <form onSubmit={handleSubmit({dataToSubmit, setIsLoading, setResults})}>
+                        <label htmlFor={'query'}>
+                            Query:
+                        </label>
                         <input 
+                            autoFocus
                             name='query' 
                             onChange={(e) => setQuery(e.target.value)} 
                             placeholder={'Type query'}
                             value={query} />
-                    </label><br/>
-                    <label htmlFor={'sort'}>
-                        Sort:
+                        <label htmlFor={'sort'}>
+                            Sort:
+                        </label>
                         <select 
                             name='sort' 
                             onChange={(e) => setSort(e.target.value)} 
@@ -98,9 +106,9 @@ const Search = ({results, setResults}) => {
                                 <option value='stars_asc'>Stars ⬆️</option> 
                                 <option value='stars_desc'>Stars ⬇️</option> 
                         </select>
-                    </label><br />
-                    <input type={'submit'} />
-                </form>
+                        <input type={'submit'} disabled={isLoading} />
+                    </form>
+                </div>
             </aside>
         </SearchStyles>
     );

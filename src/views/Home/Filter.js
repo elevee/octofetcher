@@ -1,18 +1,18 @@
-import {useState} from 'react';
+import {useEffect} from 'react';
 import {isEmpty} from 'lodash';
 import styled from 'styled-components';
 
 const FilterStyles = styled.div`
   margin: 5px;
+  justify-self: right;
   text-align: right;
 `;
 
 const Filter = ({filter, results, setFilter}) => {
     console.log('filter: ', filter);
-    console.log('filter type: ', typeof filter);
     const languages = {};
 
-    results.items.map((result) => {
+    results.items.forEach((result) => {
         const {language} = result;
         const languageName = language ? language : 'None';
 
@@ -25,11 +25,13 @@ const Filter = ({filter, results, setFilter}) => {
 
     console.log('languages', languages);
 
+    useEffect(() => setFilter(null), [results]);
+
     return (
         <FilterStyles>
             <select 
               onChange={(e) => setFilter(e.target.value)}
-              value={filter}>
+              value={filter || ''}>
                 <option value=''>All Languages</option>
                 {!isEmpty(languages) && Object.entries(languages).map((entry, i) => {
                     let [language, count] = entry;

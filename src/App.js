@@ -5,15 +5,15 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Header from './Header';
-import Home from './Home/Index';
-import Repository from './Repository/Index';
+import Header from './components/Header';
+import Home from './views/Home/Index';
+import Repository from './views/Repository/Index';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
 const AppWideStyles = styled.div`
   .App {
-    // background: pink;
     text-align: center;
     height: 100vh;
   }
@@ -21,7 +21,8 @@ const AppWideStyles = styled.div`
 
 function App() {
   const [results, setResults] = useState({
-      items: []
+      items: [],
+      status: 'initialized',
   });
 
   return (
