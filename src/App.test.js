@@ -6,7 +6,3 @@ test('App renders', () => {
   const linkElement = screen.getByText(/OctoFetcher/i);
   expect(linkElement).toBeInTheDocument();
 });
-
-// User navigates to /repositories/no-id
-// User navigates to /repositories/id and it fails
-// User navigates to /repositories/text
