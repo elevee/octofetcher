@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
 const HeaderStyles = styled.header`
+  @import url('https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Heebo:wght@200&display=swap');
+
   display: grid;
   grid-template-rows: 2fr 1fr;
-  // background-color: #dcedc8;
 
   #logo {
+    font-family: 'Bungee Outline', cursive;
+    font-weight: bold;
     margin: 0px;
     padding: 0px;
     font-size: 50px;
@@ -17,8 +20,10 @@ const HeaderStyles = styled.header`
     font-size: 17px;
   }
 
-  @media (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
     text-align: center;
+
+    #logo { font-size: 33px; }
 
     #catchphrase {
         margin-left: 0px;

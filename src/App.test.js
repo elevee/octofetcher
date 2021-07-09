@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('sample test', () => {
+test('App renders', () => {
   render(<App />);
-  const linkElement = screen.getByText(/sample test/i);
+  const linkElement = screen.getByText(/OctoFetcher/i);
   expect(linkElement).toBeInTheDocument();
 });
 

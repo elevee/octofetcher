@@ -14,6 +14,8 @@ import styled from 'styled-components';
 
 const AppWideStyles = styled.div`
   .App {
+    font-family: 'Heebo', 'cursive';
+    font-weight: bold;
     text-align: center;
     height: 100vh;
   }
@@ -32,6 +34,7 @@ function App() {
         <div className="App">
           <Switch>
             <Route path="/repositories/:id">
+              
               <Repository 
                 results={results} />
             </Route>
@@ -41,7 +44,6 @@ function App() {
                 setResults={setResults} />
             </Route>
           </Switch>
-
         </div>
       </Router>
     </AppWideStyles>

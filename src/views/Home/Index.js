@@ -1,7 +1,7 @@
-import {useState} from 'react';
-import Filter from './Filter';
-import Search from './Search';
-import RepositoriesTable from './RepositoriesTable';
+import { useState } from 'react';
+import Filter from './Filter/Index';
+import Search from './Search/Index';
+import RepositoriesTable from './RepositoriesTable/Index';
 import Colors from 'resources/Colors';
 import styled from 'styled-components';
 
@@ -23,7 +23,6 @@ const Container = styled.div`
 
   aside {
     grid-column: 1 / 2;
-    // grid-row: 1 / 2;
     background-color: ${Colors.PRIMARY};
   }
 
@@ -35,34 +34,33 @@ const Container = styled.div`
     justify-items: center;
   }
 
+`;
 
-`
+const Home = ({ results, setResults }) => {
+  const [filter, setFilter] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-const Home = ({results, setResults}) => {
-    const [filter, setFilter] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-
-    return (
-        <Container>
-            <Search {...{
-              isLoading,
-              results,
-              setIsLoading,
-              setResults
-            }} />
-            <section className='results'>
-                {results?.items?.length > 0 && 
-                    <Filter 
-                      filter={filter}
-                      setFilter={setFilter}
-                      results={results}/>}
-                <RepositoriesTable 
-                  filter={filter}
-                  isLoading={isLoading}
-                  results={results} />
-            </section>
-        </Container>
-    );
+  return (
+    <Container>
+      <Search {...{
+        isLoading,
+        results,
+        setIsLoading,
+        setResults,
+      }} />
+      <section className='results'>
+        {results?.items?.length > 0 &&
+          <Filter
+            filter={filter}
+            setFilter={setFilter}
+            results={results} />}
+        <RepositoriesTable
+          filter={filter}
+          isLoading={isLoading}
+          results={results} />
+      </section>
+    </Container>
+  );
 }
 
 export default Home;
