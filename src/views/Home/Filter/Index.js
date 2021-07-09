@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { isEmpty } from 'lodash';
+import ClearIcon from 'images/clear.png';
+import {Filters} from 'resources/Index';
 import styled from 'styled-components';
 
 export const hashTabler = ({ items }) => {
@@ -20,6 +22,15 @@ const FilterStyles = styled.div`
   margin: 5px;
   text-align: right;
 
+  .clear { cursor: pointer }
+
+  .clear img {
+    width: 25px;
+    &:hover {
+      filter: ${Filters.ACCENT};
+    }
+  }
+
   @media only screen and (max-width: 600px) {
     text-align: center;
     width: 100%;
@@ -33,6 +44,11 @@ const Filter = ({ filter, results, setFilter }) => {
 
   return (
     <FilterStyles>
+      {filter && <span 
+                className='clear'
+                onClick={() => setFilter('')}>
+                  <img src={ClearIcon} alt='clear'/>
+               </span>}
       <select
         onChange={(e) => setFilter(e.target.value)}
         value={filter || ''}>

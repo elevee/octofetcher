@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Table from 'react-bootstrap/Table';
 import Spinner from 'images/largeSpinner.gif';
+import {Filters} from 'resources/Index';
 import styled from 'styled-components';
 
 const TableStyles = styled.div`
@@ -15,6 +16,10 @@ const TableStyles = styled.div`
 
     .empty, .ftux, .loading {
         margin-top: 75px;
+    }
+
+    .loading {
+      filter: ${Filters.TRIM};
     }
 `;
 

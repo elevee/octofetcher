@@ -1,3 +1,4 @@
+import {Colors} from 'resources/Index';
 import styled from 'styled-components';
 
 const HeaderStyles = styled.header`
@@ -5,6 +6,8 @@ const HeaderStyles = styled.header`
 
   display: grid;
   grid-template-rows: 2fr 1fr;
+  background-color: ${Colors.PRIMARY};
+  border-bottom: 2px solid black;
 
   #logo {
     font-family: 'Bungee Outline', cursive;

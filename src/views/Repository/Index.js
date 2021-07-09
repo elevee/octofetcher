@@ -6,12 +6,13 @@ import { fetchRepository } from 'api/Api';
 import Spinner from 'images/largeSpinner.gif';
 import leftArrow from 'images/circled-left-2.png';
 import star from 'images/star.png';
-import Colors from 'resources/Colors';
+import {Colors, Filters} from 'resources/Index';
 import styled from 'styled-components';
 
 const RepositoryStyles = styled.div`  
   h1 a {
     color: black;
+    margin: 10px;
     font-size: 5vw;
     text-decoration: none;
     &:hover { color: ${Colors.ACCENT} }
@@ -54,18 +55,19 @@ const RepositoryStyles = styled.div`
 
   .back {
     width: 70px;
+    margin: 10px;
     &:hover {
-        filter: invert(55%) sepia(99%) saturate(597%) hue-rotate(2deg) brightness(106%) contrast(98%);
+        filter: ${Filters.ACCENT};
     }
     animation: rotation 2s infinite linear;
 
       
     @keyframes rotation {
       25% {
-        transform: rotate(3deg);
+        transform: rotate(5deg);
       }
       75% {
-        transform: rotate(-3deg);
+        transform: rotate(-5deg);
       }
     }
   }
@@ -79,12 +81,9 @@ const RepositoryStyles = styled.div`
   .tile:nth-child(even) {
     background-color: ${Colors.PRIMARY};
   }
-
-  .tile:nth-child(odd) {
-    background-color: ${Colors.SECONDARY};
-  }
-
+  
   .info {
+    background-color: ${Colors.TERTIARY};
     grid-template-columns: minmax(1fr, auto);
     grid-template-rows: 1fr;
   }
@@ -99,15 +98,21 @@ const RepositoryStyles = styled.div`
 
   .avatar img {
     border-radius: 270px;
+    margin: 10px;
     min-width: 250px;
     max-width: 400px;
     height: auto;
   }
 
-  .avatar span {
+  .loginName {
     display: block;
-    margin-bottom: 20px;
+    font-size: 33px;
+    margin: 10px 0;
     font-weight: bold;
+
+    @media screen and (max-width: 600px) {
+      font-size: 22px;
+    }
   }
   
   .star {
@@ -207,7 +212,7 @@ const Repository = ({ results, detailRecordOverride}) => {
         <div className='tile avatar'>
           <div>
             <img src={avatar_url} alt={`${name} avatar`} />
-            <span>{login}</span>
+            <span class='loginName'>{login}</span>
           </div>
         </div>
       </section>

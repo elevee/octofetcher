@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Filter from './Filter/Index';
 import Search from './Search/Index';
 import RepositoriesTable from './RepositoriesTable/Index';
-import Colors from 'resources/Colors';
+import {Colors} from 'resources/Index';
 import styled from 'styled-components';
 
 

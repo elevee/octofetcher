@@ -10,6 +10,7 @@ import Home from './views/Home/Index';
 import Repository from './views/Repository/Index';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {Colors} from 'resources/Index';
 import styled from 'styled-components';
 
 const AppWideStyles = styled.div`
@@ -17,7 +18,13 @@ const AppWideStyles = styled.div`
     font-family: 'Heebo', 'cursive';
     font-weight: bold;
     text-align: center;
+    background-color: ${Colors.SECONDARY};
     height: 100vh;
+  }
+
+  a {
+    color: ${Colors.TRIM};
+    &:hover { color: ${Colors.ACCENT}}
   }
 `;
 
